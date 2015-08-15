@@ -243,7 +243,7 @@ TMPDOSYASI="${RUNDIZIN}/.disktest.tmp~"
 DDTESTDOSYASI="${RUNDIZIN}/.disktest.dd~"
 KOMUTONEK="TIMEFORMAT=%R; sync; echo 3 > /proc/sys/vm/drop_caches; time nocache"
 
-SCRIPTCOMMANDS=( bc dd bonnie fio iozone )
+SCRIPTCOMMANDS=( bc dd bonnie fio iozone nocache )
 for i in "${SCRIPTCOMMANDS[@]}"; do
     command -v ${i} >/dev/null 2>&1
     CNF=$?

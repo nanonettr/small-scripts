@@ -1,5 +1,24 @@
 #!/bin/bash
 
+MYCOMMANDS=( pidof basename renice ionice fail2ban ps grep awk cat nocache service )
+for i in "${MYCOMMANDS[@]}"; do
+    command -v ${i} >/dev/null 2>&1
+    CNF=$?
+    if [[ "$CNF" -eq "1" ]]; then
+        echo "---- ${i} komutu bulunamadı!.."
+        exit 1
+    fi
+done
+
+if [[ $(pidof -s -o '%PPID' -x $(basename $0)) ]]; then
+    echo "---- Programın bir kopyası zaten çalısıyor!.."
+    exit 1
+fi
+
+MYPID=$$
+ionice -c 2 -n 5 -p "${MYPID}" >/dev/null 2>&1
+renice -n 10 -p "${MYPID}" >/dev/null 2>&1
+
 function mainfunc() {
     local PSPID=0
     local FPID=0

@@ -1,6 +1,9 @@
 #!/bin/bash
 
-MYCOMMANDS=( pidof basename renice ionice fail2ban ps grep awk cat nocache service )
+# Source: https://github.com/nanonettr/small-scripts
+# Version: 20151202
+
+MYCOMMANDS=( pidof basename renice ionice fail2ban-server ps grep awk cat nocache service )
 for i in "${MYCOMMANDS[@]}"; do
     command -v ${i} >/dev/null 2>&1
     CNF=$?

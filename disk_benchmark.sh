@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Source: https://github.com/nanonettr/small-scripts
+# Version: 20151202
+
 GEREKLIBOS=25 # Gigabyte
 DONGUSAYISI=5 # Passes
 

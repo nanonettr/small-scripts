@@ -8,13 +8,14 @@ Usage:
 ```
 
 
+
 fail2ban IO reduce script
 
 Usage:
 ```
 ./easy_fail2ban.sh
 ```
-If want to see output:
+If want to see some output:
 ```
 ./easy_fail2ban.sh 1
 ```

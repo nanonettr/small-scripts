@@ -3,6 +3,7 @@
 # Config
 # Tune this based on apache2 config
 apacheThreadLimit="400"; # max thread count
+outOnlyOnError="1"; # Do not print anything on success (exit status 0), print only if; apache restarted (exit status 11), apache restart failed (exit status 12) or any other error (exit status 1)
 
 # These are sane values. No need to touch.
 apacheMaxThreshold="75"; # if active thread count greater than this then apache will be restarted (percent)
@@ -10,7 +11,6 @@ apacheWaitThreshold="50"; # if active thread count greater than this script will
 apacheWaitRatio="75"; # if WaitThreshold reached and (active thread count / wait count) greater than this then apache will be restarted (percent)
 serviceWait="30"; # After service restart seconds to wait for check if successful
 restartCountMax="7"; # Max service restart tries
-outOnlyOnError="1"; # Do not print anything on success (exit status 0), print only if; apache restarted (exit status 11), apache restart failed (exit status 12) or any other error (exit status 1)
 
 # Functions
 restartCount="0";

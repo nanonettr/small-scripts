@@ -1,4 +1,5 @@
 # Small scripts
+This scripts could be used in cron, rc.local or manually.
 All scripts for Ubuntu 14 LTS. They did not tested on other distributions.
 
 ## Disk Benchmark script

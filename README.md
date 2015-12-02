@@ -1,5 +1,5 @@
 # Small scripts
-This scripts could be used in cron, rc.local or manually.
+This scripts could be used in cron, rc.local or run manually.
 All scripts for Ubuntu 14 LTS. They did not tested on other distributions.
 
 ## Disk Benchmark script
@@ -16,7 +16,7 @@ Usage:
 ./check_apache2.sh
 ```
 
-## fail2ban IO reduce script
+## fail2ban I/O reduce script
 Usage:
 ```
 ./easy_fail2ban.sh
@@ -26,3 +26,12 @@ If need to see some output:
 ./easy_fail2ban.sh 1
 ```
 
+## Apache Logger I/O reduce script
+Usage:
+```
+./easy_vlogger.sh
+```
+If need to see some output:
+```
+./easy_vlogger.sh 1
+```

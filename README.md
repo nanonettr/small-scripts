@@ -8,6 +8,14 @@ Usage:
 ./benchmark_disk.sh <FULL_PATH>
 ```
 
+## Apache2 Status Checker
+First edit file and change apacheThreadLimit based on your settings.
+Also if you want to see some output change outOnlyOnError to 0.
+Usage:
+```
+./check_apache2.sh
+```
+
 ## fail2ban IO reduce script
 Usage:
 ```

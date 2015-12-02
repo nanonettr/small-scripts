@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Source: https://github.com/nanonettr/small-scripts
+# Version: 20151202
+
 # Config
 # Tune this based on apache2 config
 apacheThreadLimit="400"; # max thread count

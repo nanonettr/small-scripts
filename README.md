@@ -7,12 +7,15 @@ Usage:
 ./disk_benchmark.sh <FULL_PATH>
 ```
 
-fail2ban IO reduve script
+
+fail2ban IO reduce script
 
 Usage:
 ```
 ./easy_fail2ban.sh
-or
+```
+If want to see output:
+```
 ./easy_fail2ban.sh 1
 ```
 

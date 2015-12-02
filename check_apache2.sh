@@ -21,6 +21,7 @@ lynxOut="";
 myOutput="";
 myStatus="";
 
+export PATH="/usr/sbin:$PATH"
 MYCOMMANDS=( pidof basename w3m bc service netstat grep wc date sleep apache2ctl )
 for i in "${MYCOMMANDS[@]}"; do
     command -v ${i} >/dev/null 2>&1

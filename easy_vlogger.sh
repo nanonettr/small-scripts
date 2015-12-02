@@ -26,7 +26,7 @@ renice -n 10 -p "${MYPID}" >/dev/null 2>&1
 
 PSPID=-1
 PSPID=$(ps x | grep -v 'grep' | grep ' vlogger (access log)' | awk '{print $1}');
-nocache ionice -c 3 -p "${PSPID}" >/dev/null 2>&1
+nocache ionice -c 2 -n 7 -p "${PSPID}" >/dev/null 2>&1
 nocache renice -n 19 -p "${PSPID}" >/dev/null 2>&1
 
 if [ -n "${1}" ]; then

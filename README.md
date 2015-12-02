@@ -1,9 +1,10 @@
 # Small scripts
+All scripts for Ubuntu 14 LTS. They did not tested on other distributions.
 
 ## Disk Benchmark script
 Usage:
 ```
-./disk_benchmark.sh <FULL_PATH>
+./benchmark_disk.sh <FULL_PATH>
 ```
 
 ## fail2ban IO reduce script

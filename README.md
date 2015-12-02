@@ -1,21 +1,17 @@
 # Small scripts
 
-Disk Benchmark script
-
+## Disk Benchmark script
 Usage:
 ```
 ./disk_benchmark.sh <FULL_PATH>
 ```
 
-
-
-fail2ban IO reduce script
-
+## fail2ban IO reduce script
 Usage:
 ```
 ./easy_fail2ban.sh
 ```
-If want to see some output:
+If need to see some output:
 ```
 ./easy_fail2ban.sh 1
 ```

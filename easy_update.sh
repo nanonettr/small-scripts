@@ -27,6 +27,8 @@ admin_mail="<CHANGE_ME>"
 # Create a temporary file
 tmpfile=$(mktemp)
 
+export DEBIAN_FRONTEND=noninteractive
+
 echo "" > ${tmpfile}
 echo "Server: $(hostname -f)" >> ${tmpfile}
 echo "Time: $(date +"%Y-%m-%d %H:%M")" >> ${tmpfile}

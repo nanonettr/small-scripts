@@ -27,6 +27,11 @@ admin_mail="<CHANGE_ME>"
 # Create a temporary file
 tmpfile=$(mktemp)
 
+echo "" > ${tmpfile}
+echo "Server: $(hostname -f)" >> ${tmpfile}
+echo "Time: $(date +"%Y-%m-%d %H:%M")" >> ${tmpfile}
+echo "" >> ${tmpfile}
+
 # Run the commands to update the system
 echo "Updating repos..." >> ${tmpfile}
 aptitude update | grep -vP "^Hit |^Ign " >> ${tmpfile} 2>&1
@@ -39,9 +44,10 @@ aptitude clean >> ${tmpfile} 2>&1
 apt-get autoclean >> ${tmpfile} 2>&1
 aptitude autoclean >> ${tmpfile} 2>&1
 apt-get autoremove >> ${tmpfile} 2>&1
+echo "" >> ${tmpfile}
 
 if [ -f /var/run/reboot-required ]; then
-    echo ""
+    echo "" >> ${tmpfile}
     cat /var/run/reboot-required >> ${tmpfile} 2>&1
 fi
 
@@ -51,7 +57,7 @@ if grep -q 'E: \|W: ' ${tmpfile} ; then
 else
     if [ -f /var/run/reboot-required ]; then
         echo "Auto reboot @$(date -d "15 minutes" +"%Y-%m-%d %H:%M")..." >> ${tmpfile}
-        mail -s "[$(hostname -f)] " ${admin_mail} < ${tmpfile}
+        mail -s "[$(hostname -f)] Reboot scheduled" ${admin_mail} < ${tmpfile}
         at now +15 minutes >/dev/null 2>&1 <<< "reboot"
     fi
 fi

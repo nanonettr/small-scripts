@@ -52,7 +52,7 @@ else
     if [ -f /var/run/reboot-required ]; then
         echo "Auto reboot @$(date -d "15 minutes" +"%Y-%m-%d %H:%M")..." >> ${tmpfile}
         mail -s "[$(hostname -f)] " ${admin_mail} < ${tmpfile}
-        at now +15 minutes <<< "reboot"
+        at now +15 minutes >/dev/null 2>&1 <<< "reboot"
     fi
 fi
 

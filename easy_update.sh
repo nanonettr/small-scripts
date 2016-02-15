@@ -1,6 +1,6 @@
 #!/bin/bash
 # Source: https://github.com/nanonettr/small-scripts
-# Version: 20160123
+# Version: 20160215
 
 # Based on https://help.ubuntu.com/community/AutoWeeklyUpdateHowTo
 
@@ -27,6 +27,7 @@ admin_mail="<CHANGE_ME>"
 # Create a temporary file
 tmpfile=$(mktemp)
 
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:$PATH"
 export DEBIAN_FRONTEND=noninteractive
 
 echo "" > ${tmpfile}

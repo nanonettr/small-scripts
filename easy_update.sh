@@ -1,6 +1,6 @@
 #!/bin/bash
 # Source: https://github.com/nanonettr/small-scripts
-# Version: 20160215
+# Version: 20160219
 
 # Based on https://help.ubuntu.com/community/AutoWeeklyUpdateHowTo
 
@@ -21,13 +21,14 @@ if [[ $(pidof -s -o '%PPID' -x $(basename $0)) ]]; then
     exit 1
 fi
 
-# Your email address.
-admin_mail="<CHANGE_ME>"
+# REPORT SETTINGS
+always_report="0" # 0) Send mail only if something happened, 1) Always send output
+admin_mail="<CHANGE_ME>" # Email address
 
 # Create a temporary file
 tmpfile=$(mktemp)
 
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:$PATH"
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 export DEBIAN_FRONTEND=noninteractive
 
 echo "" > ${tmpfile}
@@ -43,10 +44,9 @@ echo "Updating packages..." >> ${tmpfile}
 aptitude -y upgrade >> ${tmpfile} 2>&1
 echo "" >> ${tmpfile}
 echo "Cleanup..." >> ${tmpfile}
+apt-get autoremove >> ${tmpfile} 2>&1
 aptitude clean >> ${tmpfile} 2>&1
 apt-get autoclean >> ${tmpfile} 2>&1
-aptitude autoclean >> ${tmpfile} 2>&1
-apt-get autoremove >> ${tmpfile} 2>&1
 echo "" >> ${tmpfile}
 
 if [ -f /var/run/reboot-required ]; then
@@ -54,14 +54,19 @@ if [ -f /var/run/reboot-required ]; then
     cat /var/run/reboot-required >> ${tmpfile} 2>&1
 fi
 
-# Send log via mail
-if grep -q 'E: \|W: ' ${tmpfile} ; then
+if [ -n "${1}" ]; then # If any arg ALWAYS display log
+    cat ${tmpfile}
+elif grep -q 'E: \|W: ' ${tmpfile}; then # ERROR, Send log via mail
     mail -s "[$(hostname -f)] Upgrade failed" ${admin_mail} < ${tmpfile}
 else
-    if [ -f /var/run/reboot-required ]; then
-        echo "Auto reboot @$(date -d "15 minutes" +"%Y-%m-%d %H:%M")..." >> ${tmpfile}
+    if [ -f /var/run/reboot-required ]; then # OK, NEED REBOOT
+        echo "Auto reboot @$(date -d "15 minutes" +"%Y-%m-%d %H:%M")..." >> ${tmpfile} 2>&1
         mail -s "[$(hostname -f)] Reboot scheduled" ${admin_mail} < ${tmpfile}
-        at now +15 minutes >/dev/null 2>&1 <<< "reboot"
+        at now +15 minutes <<< "reboot"
+    else # OK
+        if [[ "$always_report" -eq "1" ]]; then # ALWAYS REPORT
+            mail -s "[$(hostname -f)] Update success" ${admin_mail} < ${tmpfile}
+        fi
     fi
 fi
 

@@ -35,3 +35,13 @@ If need to see some output:
 ```
 ./easy_vlogger.sh 1
 ```
+
+## Ubuntu 14 Updater
+Usage:
+```
+./easy_update.sh
+```
+If need to see some output:
+```
+./easy_update.sh 1
+```

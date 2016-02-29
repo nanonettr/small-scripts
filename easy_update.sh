@@ -1,6 +1,6 @@
 #!/bin/bash
 # Source: https://github.com/nanonettr/small-scripts
-# Version: 20160219
+# Version: 20160229
 
 # Based on https://help.ubuntu.com/community/AutoWeeklyUpdateHowTo
 
@@ -9,15 +9,13 @@ for i in "${MYCOMMANDS[@]}"; do
     command -v ${i} >/dev/null 2>&1
     CNF=$?
     if [[ "$CNF" -eq "1" ]]; then
-        echo "!! ${i} not installed. Aborting!...";
-        echo >&2;
+        >&2 echo "!! ${i} not installed. Aborting!...";
         exit 1;
     fi
 done
 
 if [[ $(pidof -s -o '%PPID' -x $(basename $0)) ]]; then
-    echo "!! Another copy of this script is already running!..."
-    echo >&2;
+    >&2 echo "!! Another copy of this script is already running!..."
     exit 1
 fi
 
@@ -60,9 +58,9 @@ elif grep -q 'E: \|W: ' ${tmpfile}; then # ERROR, Send log via mail
     mail -s "[$(hostname -f)] Upgrade failed" ${admin_mail} < ${tmpfile}
 else
     if [ -f /var/run/reboot-required ]; then # OK, NEED REBOOT
-        echo "Auto reboot @$(date -d "15 minutes" +"%Y-%m-%d %H:%M")..." >> ${tmpfile} 2>&1
+        echo "Auto reboot @$(date -d "15 minutes" +"%Y-%m-%d %H:%M")..." >> ${tmpfile}
         mail -s "[$(hostname -f)] Reboot scheduled" ${admin_mail} < ${tmpfile}
-        at now +15 minutes <<< "reboot"
+        at now +15 minutes <<< "reboot" >/dev/null 2>&1
     else # OK
         if [[ "$always_report" -eq "1" ]]; then # ALWAYS REPORT
             mail -s "[$(hostname -f)] Update success" ${admin_mail} < ${tmpfile}
